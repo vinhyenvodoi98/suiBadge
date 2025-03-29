@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useCurrentAccount, useSignAndExecuteTransactionBlock } from '@mysten/dapp-kit';
+import { useCurrentAccount, useSignAndExecuteTransactionBlock, useSuiClient } from '@mysten/dapp-kit';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { Drop, MintLink, MintStatus } from '@/types/drop';
 import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { SuiTransactionBlockResponse } from '@mysten/sui.js/client';
-
+import { NFT_PACKAGE_ID } from '@/constant';
 interface MintPageProps {
   params: {
     id: string;
@@ -24,6 +24,7 @@ export default function MintPage({ params }: MintPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [mintStatus, setMintStatus] = useState<MintStatus | null>(null);
   const [isMinting, setIsMinting] = useState(false);
+  const suiClient = useSuiClient();
 
   useEffect(() => {
     validateMintLink();
@@ -72,19 +73,21 @@ export default function MintPage({ params }: MintPageProps) {
     try {
       // Create a new transaction block
       const tx = new TransactionBlock();
-      
+
       // Add mint transaction
       tx.moveCall({
-        target: `${drop.packageId}::nft::mint`,
+        target: `${NFT_PACKAGE_ID}::erc721::mint`,
         arguments: [
-          tx.object(drop.objectId),
-          tx.pure(drop.maxSupply),
+          tx.pure(drop.name),
+          tx.pure(drop.description),
+          tx.pure(drop.image),
         ],
       });
 
       // Sign and execute the transaction
       const result = await signAndExecute({
         transactionBlock: tx,
+        chain: 'sui:devnet',
         options: {
           showEffects: true,
         },
