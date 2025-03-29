@@ -136,11 +136,11 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
     const mintUrl = `${window.location.origin}/mint/${uniqueId}`;
     try {
       await navigator.clipboard.writeText(mintUrl);
-      setCopiedLinks(prev => new Set([...prev, uniqueId]));
+      setCopiedLinks(prev => new Set(Array.from(prev).concat(uniqueId)));
       toast.success('Link copied to clipboard');
       setTimeout(() => {
         setCopiedLinks(prev => {
-          const newSet = new Set(prev);
+          const newSet = new Set(Array.from(prev));
           newSet.delete(uniqueId);
           return newSet;
         });
