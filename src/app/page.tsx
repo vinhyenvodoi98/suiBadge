@@ -19,7 +19,7 @@ export default function Home() {
           {
             account ?
             <Link href='/drops'>
-              <button className="btn btn-neutral w-[200px] text-2xl">Make badge 🌱</button>
+              <button className="btn btn-neutral w-[200px] text-2xl">Make badge</button>
             </Link>
             :
             <ConnectButton />

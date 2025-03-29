@@ -153,27 +153,27 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-main bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="flex items-center justify-center min-h-main bg-[#F8F9FA]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0057FF]"></div>
       </div>
     );
   }
 
   if (!drop) {
     return (
-      <div className="flex items-center justify-center min-h-main bg-gradient-to-br from-blue-50 to-cyan-50">
-        <p className="text-gray-500">Drop not found</p>
+      <div className="flex items-center justify-center min-h-main bg-[#F8F9FA]">
+        <p className="text-[#555]">Drop not found</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-main bg-gradient-to-br from-blue-50 to-cyan-50 py-12">
+    <div className="min-h-main bg-[#F8F9FA] py-8">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="backdrop-blur-lg bg-white/70 rounded-2xl shadow-xl p-8 border border-white/20">
-            <div className="relative h-72 w-full mb-8 rounded-xl overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+            <div className="relative h-64 md:h-72 w-full mb-6 rounded-lg overflow-hidden shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
               <Image
                 src={drop.image}
                 alt={drop.name}
@@ -181,38 +181,39 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
                 className="object-cover transform hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 text-[#333]">
               {drop.name}
             </h1>
-            <p className="text-gray-600 mb-8 text-lg leading-relaxed">{drop.description}</p>
-            <div className="space-y-6">
-              <div className="p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                <h3 className="text-sm font-medium text-blue-600 mb-1">Start Time</h3>
-                <p className="text-gray-700">{format(new Date(drop.startTime), 'PPP p')}</p>
+            <p className="text-[#555] mb-6 text-base md:text-lg leading-relaxed">{drop.description}</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <h3 className="text-sm font-medium text-[#0057FF] mb-1">Start Time</h3>
+                <p className="text-[#333]">{format(new Date(drop.startTime), 'PPP p')}</p>
               </div>
-              <div className="p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                <h3 className="text-sm font-medium text-blue-600 mb-1">End Time</h3>
-                <p className="text-gray-700">{format(new Date(drop.endTime), 'PPP p')}</p>
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <h3 className="text-sm font-medium text-[#0057FF] mb-1">End Time</h3>
+                <p className="text-[#333]">{format(new Date(drop.endTime), 'PPP p')}</p>
               </div>
-              <div className="p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                <h3 className="text-sm font-medium text-blue-600 mb-1">Maximum Supply</h3>
-                <p className="text-gray-700">{drop.maxSupply}</p>
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <h3 className="text-sm font-medium text-[#0057FF] mb-1">Maximum Supply</h3>
+                <p className="text-[#333]">{drop.maxSupply}</p>
               </div>
             </div>
 
-            <div className="mt-8 space-y-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-[#333]">
                 Mint Configuration
               </h2>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => handleMintConfigChange('link')}
-                  className={`px-6 py-3 rounded-xl transition-all duration-300 ${
+                  className={`px-5 py-2.5 rounded-lg transition-all duration-300 ${
                     mintConfig.type === 'link'
-                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30'
-                      : 'bg-white/50 text-gray-700 hover:bg-white/80 backdrop-blur-sm'
+                      ? 'bg-[#0057FF] text-white shadow-sm'
+                      : 'bg-gray-50 text-[#555] hover:bg-gray-100 border border-gray-200'
                   }`}
                 >
                   Mint Link
@@ -220,10 +221,10 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
                 <button
                   type="button"
                   onClick={() => handleMintConfigChange('whitelist')}
-                  className={`px-6 py-3 rounded-xl transition-all duration-300 ${
+                  className={`px-5 py-2.5 rounded-lg transition-all duration-300 ${
                     mintConfig.type === 'whitelist'
-                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30'
-                      : 'bg-white/50 text-gray-700 hover:bg-white/80 backdrop-blur-sm'
+                      ? 'bg-[#0057FF] text-white shadow-sm'
+                      : 'bg-gray-50 text-[#555] hover:bg-gray-100 border border-gray-200'
                   }`}
                 >
                   Whitelist
@@ -232,29 +233,42 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
 
               {mintConfig.type === 'link' && (
                 <div className="space-y-4">
-                  <button
-                    onClick={() => setIsGenerateModalOpen(true)}
-                    className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-                    </svg>
-                    Generate Mint Link
-                  </button>
+                  {mintLinks.length === 0 && (
+                    <button
+                      onClick={() => setIsGenerateModalOpen(true)}
+                      className="w-full px-6 py-3 bg-[#0057FF] text-white rounded-lg hover:bg-[#0046CC] transition-colors duration-200 flex items-center justify-center gap-2 shadow-sm"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                      </svg>
+                      Generate Mint Link
+                    </button>
+                  )}
 
                   {mintLinks.length > 0 && (
                     <div className="space-y-4">
-                      <h3 className="text-lg font-medium text-gray-700">Generated Mint Links</h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-medium text-[#333]">Generated Mint Links</h3>
+                        <button
+                          onClick={() => setIsGenerateModalOpen(true)}
+                          className="px-4 py-2 bg-[#0057FF] text-white rounded-lg hover:bg-[#0046CC] transition-colors duration-200 flex items-center gap-2 shadow-sm text-sm"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                          </svg>
+                          Generate Another
+                        </button>
+                      </div>
                       <div className="space-y-3">
                         {mintLinks.map((link) => (
-                          <div key={link.uniqueId} className="p-4 bg-white/50 rounded-xl backdrop-blur-sm border border-blue-100">
+                          <div key={link.uniqueId} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <div className="flex items-center gap-2">
-                              <code className="flex-1 p-2 bg-white/80 rounded-lg text-sm break-all">
+                              <code className="flex-1 p-2 bg-white rounded-md text-sm break-all border border-gray-200">
                                 {`${window.location.origin}/mint/${link.uniqueId}`}
                               </code>
                               <button
                                 onClick={() => copyToClipboard(link.uniqueId)}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
+                                className="px-4 py-2 bg-[#0057FF] text-white rounded-lg hover:bg-[#0046CC] transition-colors duration-200 flex items-center gap-2 shadow-sm"
                               >
                                 {copiedLinks.has(link.uniqueId) ? (
                                   <>
@@ -275,15 +289,15 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
                               </button>
                             </div>
                             <div className="mt-3 grid grid-cols-2 gap-4 text-sm">
-                              <div className="p-2 bg-white/80 rounded-lg">
-                                <p className="text-gray-500">Status</p>
+                              <div className="p-2 bg-white rounded-md border border-gray-200">
+                                <p className="text-[#555]">Status</p>
                                 <p className={`font-medium ${link.isUsed ? 'text-red-600' : 'text-green-600'}`}>
                                   {link.isUsed ? 'Used' : 'Available'}
                                 </p>
                               </div>
-                              <div className="p-2 bg-white/80 rounded-lg">
-                                <p className="text-gray-500">Expires</p>
-                                <p className="font-medium text-gray-700">
+                              <div className="p-2 bg-white rounded-md border border-gray-200">
+                                <p className="text-[#555]">Expires</p>
+                                <p className="font-medium text-[#333]">
                                   {format(new Date(link.expiresAt), 'PPP')}
                                 </p>
                               </div>
@@ -298,7 +312,7 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
 
               {mintConfig.type === 'whitelist' && (
                 <div>
-                  <label className="block text-sm font-medium text-blue-600 mb-3">
+                  <label className="block text-sm font-medium text-[#0057FF] mb-3">
                     Upload Whitelist (CSV)
                   </label>
                   <div className="relative">
@@ -306,22 +320,22 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
                       type="file"
                       accept=".csv,.txt"
                       onChange={handleWhitelistUpload}
-                      className="w-full px-6 py-3 bg-white/50 border border-blue-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent backdrop-blur-sm transition-all duration-300 cursor-pointer"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0057FF]/20 focus:border-[#0057FF] transition-all duration-200 cursor-pointer"
                     />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="text-gray-500">Choose a file</span>
+                      <span className="text-[#555]">Choose a file</span>
                     </div>
                   </div>
                   {whitelistAddresses.length > 0 && (
                     <div className="mt-6">
-                      <h3 className="text-sm font-medium text-blue-600 mb-3">
+                      <h3 className="text-sm font-medium text-[#0057FF] mb-3">
                         Whitelist Preview ({whitelistAddresses.length} addresses)
                       </h3>
-                      <div className="max-h-48 overflow-y-auto bg-white/50 rounded-xl backdrop-blur-sm border border-blue-100">
+                      <div className="max-h-48 overflow-y-auto bg-gray-50 rounded-lg border border-gray-200">
                         {whitelistAddresses.map((address, index) => (
                           <div
                             key={index}
-                            className="px-4 py-3 border-b border-blue-100 last:border-0 hover:bg-white/80 transition-colors duration-200"
+                            className="px-4 py-2.5 border-b border-gray-200 last:border-0 hover:bg-white transition-colors duration-200"
                           >
                             {address}
                           </div>
@@ -336,7 +350,7 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-[#0057FF] text-white rounded-lg hover:bg-[#0046CC] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2 shadow-sm"
                 >
                   {isSubmitting ? (
                     <>
@@ -363,7 +377,7 @@ export default function DropDetailsPage({ params }: DropDetailsPageProps) {
         isOpen={isGenerateModalOpen}
         onClose={() => {
           setIsGenerateModalOpen(false);
-          fetchMintLinks(); // Refresh mint links after generating a new one
+          fetchMintLinks();
         }}
       />
     </div>
