@@ -35,3 +35,37 @@ body {
 .min-h-main {
   @apply min-h-[calc(100vh)];
 }
+
+@keyframes wave {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-25%) translateY(10%);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+.animate-wave {
+  animation: wave 8s ease-in-out infinite;
+}
+
+.animate-wave-delayed {
+  animation: wave 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.animate-wave-more-delayed {
+  animation: wave 8s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* Glass effect for cards */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

@@ -5,11 +5,11 @@ module hello_world::hello_world {
     use sui::transfer;
     use sui::tx_context::{Self, TxContext};
 
-    struct Hello has key, store {
+    /// Represents a Hello object that stores a greeting message
+    public struct Hello has key, store {
         id: UID,
         text: string::String
     }
-    
     public entry fun mint_hello_world(ctx: &mut TxContext) {
     // Mint an object that contains an ID and "Hello World" text
         let hello_object = Hello {
@@ -19,5 +19,4 @@ module hello_world::hello_world {
         // Transfer the object to initializer address
         transfer::public_transfer(hello_object, tx_context::sender(ctx));
     }
-
 }
