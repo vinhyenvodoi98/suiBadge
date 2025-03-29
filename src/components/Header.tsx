@@ -1,13 +1,8 @@
 'use client'
 
-import { ConnectButton, useCurrentAccount, useSuiClientQuery } from '@mysten/dapp-kit';
+import { ConnectButton } from '@mysten/dapp-kit';
 
 export default function Header() {
-  const account = useCurrentAccount();
-  // Coins
-  const { data: balance } = useSuiClientQuery('getAllBalances', {
-    owner: account?.address as string,
-	});
 
   return (
     <div className='sticky top-0 z-50'>

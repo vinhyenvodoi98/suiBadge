@@ -20,7 +20,7 @@ export default function DropCard({ drop }: DropCardProps) {
         />
         <div className="absolute top-2 right-2">
           <span className="bg-blue-600 bg-opacity-80 text-white px-3 py-1 rounded-full text-sm">
-            {drop.claimedCount}/{drop.totalSupply}
+            {drop.mintConfig?.whitelist?.length}/{drop.maxSupply}
           </span>
         </div>
       </div>
@@ -32,14 +32,14 @@ export default function DropCard({ drop }: DropCardProps) {
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <span>Created {formatDistanceToNow(new Date(drop.createdAt), { addSuffix: true })}</span>
           <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
-            {drop.chain}
+            Sui
           </span>
         </div>
         
         <div className="flex justify-between items-center">
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
-            onClick={() => window.location.href = `/drops/${drop.id}`}
+            onClick={() => window.location.href = `/drops/${drop._id}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />

@@ -42,6 +42,14 @@ const config: Config = {
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
+      height: {
+        'main': 'calc(100vh - 64px)', // Assuming header height is 64px
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
     },
     daisyui: {
       themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

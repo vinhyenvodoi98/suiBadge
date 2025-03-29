@@ -43,7 +43,7 @@ export default function DropsList() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {drops.map((drop) => (
-        <DropCard key={drop.id} drop={drop} />
+        <DropCard key={drop._id} drop={drop} />
       ))}
     </div>
   );

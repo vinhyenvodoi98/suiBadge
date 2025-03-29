@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import connectDB from '../../../../lib/mongodb';
-import { Drop } from '../../../../models/Drop';
+import connectDB from '@/lib/mongodb';
+import { Drop } from '@/models/Drop';
 
 export async function GET(request: Request) {
   try {
