@@ -2,7 +2,7 @@ export interface Drop {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
+  image: string;
   totalSupply: number;
   claimedCount: number;
   createdAt: string;

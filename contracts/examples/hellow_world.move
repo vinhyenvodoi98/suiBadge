@@ -1,4 +1,4 @@
-module hello_world::hello_world {
+module examples::hello_world {
 
     use std::string;
     use sui::object::{Self, UID};
@@ -10,6 +10,7 @@ module hello_world::hello_world {
         id: UID,
         text: string::String
     }
+
     public entry fun mint_hello_world(ctx: &mut TxContext) {
     // Mint an object that contains an ID and "Hello World" text
         let hello_object = Hello {

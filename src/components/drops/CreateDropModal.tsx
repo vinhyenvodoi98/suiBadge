@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useCurrentAccount } from '@mysten/dapp-kit';
 
 interface CreateDropModalProps {
   isOpen: boolean;
@@ -9,19 +10,25 @@ interface CreateDropModalProps {
 }
 
 export default function CreateDropModal({ isOpen, onClose }: CreateDropModalProps) {
+  const account = useCurrentAccount();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    imageUrl: '',
-    totalSupply: 100,
-    startDate: '',
-    endDate: '',
-    requirements: [] as { type: string; value: string }[],
+    image: '',
+    maxSupply: 100,
+    startTime: '',
+    endTime: '',
+    userAddress: account?.address || '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!account?.address) {
+      alert('Please connect your wallet first');
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -30,7 +37,13 @@ export default function CreateDropModal({ isOpen, onClose }: CreateDropModalProp
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          userAddress: account.address,
+          maxSupply: Number(formData.maxSupply),
+          startTime: new Date(formData.startTime).toISOString(),
+          endTime: new Date(formData.endTime).toISOString(),
+        }),
       });
 
       if (!response.ok) {
@@ -112,50 +125,50 @@ export default function CreateDropModal({ isOpen, onClose }: CreateDropModalProp
               type="url"
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              value={formData.imageUrl}
-              onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+              value={formData.image}
+              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               placeholder="https://example.com/image.jpg"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Total Supply
+              Maximum Supply
             </label>
             <input
               type="number"
               required
               min="1"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              value={formData.totalSupply}
-              onChange={(e) => setFormData({ ...formData, totalSupply: parseInt(e.target.value) })}
+              value={formData.maxSupply}
+              onChange={(e) => setFormData({ ...formData, maxSupply: parseInt(e.target.value) })}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Start Date
+                Start Time
               </label>
               <input
                 type="datetime-local"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                value={formData.startDate}
-                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                value={formData.startTime}
+                onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                End Date
+                End Time
               </label>
               <input
                 type="datetime-local"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                value={formData.endDate}
-                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                value={formData.endTime}
+                onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
               />
             </div>
           </div>
